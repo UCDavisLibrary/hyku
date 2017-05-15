@@ -12,6 +12,7 @@ module Hyku
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
+    config.active_job.queue_adapter = :inline
 
     # Gzip all responses.  We probably could do this in an upstream proxy, but
     # configuring Nginx on Elastic Beanstalk is a pain.

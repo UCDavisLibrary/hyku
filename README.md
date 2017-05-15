@@ -1,12 +1,14 @@
-[![Build Status](https://travis-ci.org/projecthydra-labs/hyku.svg)](https://travis-ci.org/projecthydra-labs/hyku)
-[![Coverage Status](https://coveralls.io/repos/projecthydra-labs/hyku/badge.svg?branch=master&service=github)](https://coveralls.io/github/projecthydra-labs/hyku?branch=master)
-[![Stories in Ready](https://badge.waffle.io/projecthydra-labs/hyku.png?label=ready&title=Ready)](https://waffle.io/projecthydra-labs/hyku)
-
 # Hydra-in-a-Box Repository App
 
 Codename: Hyku
 
 ## Running the stack
+
+### UC Davis
+
+``` bash
+dc --file=docker-compose.dev.yml exec solr solr create -c hydra_development -d /app/solr/config
+```
 
 ### For development
 
