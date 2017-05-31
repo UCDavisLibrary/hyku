@@ -51,7 +51,7 @@ s3:
 
 fits_path: "/opt/fits-1.1.0/fits.sh"
 
-# Is this application a worker? (processing queues, not a webapp)
-worker: false
-
 google_analytics_id:
+
+# Register here: http://www.geonames.org/manageaccount
+geonames_username: 'jcoyne'
