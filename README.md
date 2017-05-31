@@ -7,8 +7,13 @@ Codename: Hyku
 ### UC Davis
 
 ``` bash
-dc --file=docker-compose.dev.yml exec solr solr create -c hydra_development -d /app/solr/config
+dc --file=dev.yml exec solr solr create -c hydra_development -d
+/app/solr/config
+dc -f dev.yml exec web bundle exec rails db:migrate
 ```
+
+After that, we need to go in and create some adminstrative workflows
+
 
 ### For development
 

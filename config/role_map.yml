@@ -1,6 +1,13 @@
 development:
+  admin:
+    - qjhart@ucdavis.edu
+    - jrmerz@ucdavis.edu
   archivist:
-    - archivist1@example.com
+    - qjhart@ucdavis.edu
+    - jrmerz@ucdavis.edu
+  researcher:
+    - qjhart@gmail.com
+    - jrmerz@gmail.com
 test:
   archivist:
     - archivist1@example.com

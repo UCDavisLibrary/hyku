@@ -10,12 +10,17 @@ volumes:
 services:
   solr:
     image: solr
-    command: solr start -f
+#    command: solr start -f
     ports:
       - "8983:8983"
     volumes:
       - .:/app
-      - solr:/data
+      - solr:/opt/solr/server/solr/hydra_development
+#    entrypoint:
+#      - docker-entrypoint.sh
+#      - solr-precreate
+#      - hydra-development
+#      - /app/solr/config
 
   fcrepo:
     image: botimer/fcrepo:4.5.1
