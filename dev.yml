@@ -10,7 +10,6 @@ volumes:
 services:
   solr:
     image: solr
-#    command: solr start -f
     ports:
       - "8983:8983"
     volumes:
@@ -25,6 +24,7 @@ services:
   fcrepo:
     image: botimer/fcrepo:4.5.1
     volumes:
+     - ./fcrepo_io:/io  # Us can use this in development to save and restore fcrepo
      - fcrepo:/opt/data
     ports:
      - "8080:8080"
@@ -44,7 +44,14 @@ services:
       - SECRET_KEY_BASE=asdf
 #      - RAILS_CACHE_STORE_URL=memcache
     volumes:
+      - ./examples:/data/examples
+      - .:/data  # You can do this to actively make changes in dev mode
+      - ./gems:/usr/local/bundle/gems  # This makes gems available outsite container
       - uploads:/data/public/uploads
+    logging:
+      driver: "json-file"
+      options:
+        max-size: 1m
 
   web:
     extends: app
@@ -62,6 +69,7 @@ services:
     image: postgres
     volumes:
       - db:/var/lib/postgresql/data
+      - ./Fc:/Fc  # For Backups and restores
     ports:
       - "5432:5432"
 

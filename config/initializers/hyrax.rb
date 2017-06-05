@@ -4,7 +4,7 @@ Hyrax.config do |config|
   config.register_curation_concern :image
 
   # Email recipient of messages sent via the contact form
-  # config.contact_email = "repo-admin@example.org"
+  config.contact_email = Settings.contact_email
 
   # Text prefacing the subject entered in the contact form
   # config.subject_prefix = "Contact form:"
@@ -88,7 +88,7 @@ Hyrax.config do |config|
   # config.always_display_share_button = true
 
   # The user who runs batch jobs. Update this if you aren't using emails
-  # config.batch_user_key = 'batchuser@example.com'
+  config.batch_user_key = 'qjhart@ucdavis.edu'
 
   # The user who runs audit jobs. Update this if you aren't using emails
   # config.audit_user_key = 'audituser@example.com'
@@ -139,15 +139,17 @@ Hyrax.config do |config|
   # config.binaries_directory = "tmp/binaries"
 
   # If browse-everything has been configured, load the configs.  Otherwise, set to nil.
-  begin
-    if defined? BrowseEverything
-      config.browse_everything = BrowseEverything.config
-    else
-      Rails.logger.warn "BrowseEverything is not installed"
-    end
-  rescue Errno::ENOENT
-    config.browse_everything = nil
-  end
+  # TODO: Re-enable this when work on BE has been prioritized
+  # begin
+  #   if defined? BrowseEverything
+  #     config.browse_everything = BrowseEverything.config
+  #   else
+  #     Rails.logger.warn "BrowseEverything is not installed"
+  #   end
+  # rescue Errno::ENOENT
+  #   config.browse_everything = nil
+  # end
+  config.browse_everything = nil
 end
 
 Date::DATE_FORMATS[:standard] = "%m/%d/%Y"

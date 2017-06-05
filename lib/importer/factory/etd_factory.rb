@@ -1,7 +1,7 @@
 module Importer
   module Factory
     class ETDFactory < ObjectFactory
-      include WithAssociatedCollection
+#      include WithAssociatedCollection
 
       self.klass = GenericWork
       # A way to identify objects that are not Hydra minted identifiers

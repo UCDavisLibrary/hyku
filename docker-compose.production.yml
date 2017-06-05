@@ -84,13 +84,13 @@ services:
       internal:
 
   fcrepo:
-    image: cbeer/fcrepo4:4.7
+    image: cbeer/fcrepo4
     expose:
-      - 8080
+      - 8983
     volumes:
       - fcrepo:/data
-    environment:
-      - JAVA_OPTS=${JAVA_OPTS} -Dfcrepo.modeshape.configuration="classpath:/config/file-simple/repository.json" -Dfcrepo.object.directory="/data/objects" -Dfcrepo.binary.directory="/data/binaries"
+#    environment:
+#      - JAVA_OPTS="${JAVA_OPTS} -Dfcrepo.modeshape.configuration=\"classpath:/config/minimal-default/repository.json\""
     networks:
       internal:
 
@@ -104,9 +104,10 @@ services:
   app:
     build: .
     environment:
-      - REDIS_HOST=redis
+      - REDIS_HOST=redis_cluster
+      - REDIS_SENTINEL_HOST=redis_sentinel
       - DATABASE_URL=postgresql://postgres@db/postgres
-      - FEDORA_URL=http://fcrepo:8080/fcrepo/rest
+      - FEDORA_URL=http://fcrepo:8983/fedora/rest
       - SOLR_URL=http://solr:8983/solr/
       - SETTINGS__ACTIVE_JOB__QUEUE_ADAPTER=sidekiq
       - SETTINGS__SOLR__URL=http://solr:8983/solr/
@@ -128,7 +129,7 @@ services:
       - db
       - solr
       - fcrepo
-      - redis
+      - redis_sentinel
       - zoo1
       - zoo2
       - zoo3
@@ -144,7 +145,7 @@ services:
       - db
       - solr
       - fcrepo
-      - redis
+      - redis_sentinel
       - zoo1
       - zoo2
       - zoo3
@@ -178,19 +179,35 @@ services:
     volumes:
       - $DOCKER_CERT_PATH:$DOCKER_CERT_PATH
     ports:
-      - 8080:80
-      - 8443:443
+      - "9080:80"
+      - "9443:443"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
       internal:
       external:
 
-  redis:
-    image: redis:3
+  redis_primary:
+    extends: redis
     command: redis-server
     volumes:
       - redis:/data
+
+  redis:
+    image: redis:3
+    command: redis-server --slaveof redis_primary 6379
+    networks:
+      internal:
+        aliases:
+          - redis_cluster
+
+  redis_sentinel:
+    image: s7anley/redis-sentinel-docker
+    environment:
+      - MASTER=redis_primary
+      - MASTER_NAME=redis_cluster
+    links:
+      - redis_primary
     networks:
       internal:
 

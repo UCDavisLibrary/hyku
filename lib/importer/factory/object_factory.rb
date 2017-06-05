@@ -73,7 +73,7 @@ module Importer
       # rubocop:disable Metrics/MethodLength
       def create
         attrs = create_attributes
-
+        #raise "#{attrs}"
         # There's a bug in ActiveFedora when there are many
         # habtm <-> has_many associations, where they won't all get saved.
         # https://github.com/projecthydra/active_fedora/issues/874
@@ -126,7 +126,13 @@ module Importer
         # a way that is compatible with how the factory needs them.
         def transform_attributes
           StringLiteralProcessor.process(attributes.slice(*permitted_attributes))
-                                .merge(file_attributes)
+            .merge(file_attributes).merge(remote_files)
+        end
+
+        def remote_files
+          attributes[:file].present? ? { remote_files: attributes[:file].map { |file_name| {
+                                    url: File.join('file://',files_directory,file_name),
+                                    file_name: file_name } } } : { }
         end
 
         def file_attributes

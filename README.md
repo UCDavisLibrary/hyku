@@ -1,80 +1,73 @@
-# Hydra-in-a-Box Repository App
+# UC Davis Hyku DAMS
 
-Codename: Hyku
+This is a very small modification to the hyku setup. Currently, most of the
+changes are just to get it working in a development docker setup.
 
-## Running the stack
+We use the dev.yml file for development. This file starts up solr and postgres
+in separate containers. The hope is to smooth transition to the production
+server.
 
-### UC Davis
+## Development Setup
+
+### 1st Time installation
+
+The `dev.yml` file is setup to start the hydra_development instance on startup.
+The setup also keeps the system persistent from startup to startup, with
+volumes for solr, postgres, and fcrepo.  The system uses a different fcrepo then
+the `samvera-labs` setup.
+
+On the first time instance, you need to migrate the database.
 
 ``` bash
-dc --file=dev.yml exec solr solr create -c hydra_development -d
-/app/solr/config
-dc -f dev.yml exec web bundle exec rails db:migrate
+alias dc='docker-compose --file=dev.yml'
+dc exec web bundle exec rails db:migrate
 ```
 
 After that, we need to go in and create some adminstrative workflows
 
+### Restart
 
-### For development
+If you turn off the system with `dc down`, you should be able to turn it back on
+with `dc up -d`.  The data should be persistent between those.
 
-```bash
-solr_wrapper
-fcrepo_wrapper
-postgres -D ./db/postgres
-redis-server /usr/local/etc/redis.conf
-bin/setup
-DISABLE_REDIS_CLUSTER=true bundle exec sidekiq
-DISABLE_REDIS_CLUSTER=true bundle exec rails server -b 0.0.0.0
-```
-### For testing
+### Reload From Scratch
 
-See the [Hyku Development Guide](https://github.com/projecthydra-labs/hyku/wiki/Hyku-Development-Guide) for how to run tests.
+We are looking into methods that allow you to reload the development server
+if you need to restart the docker volumns as well.  This requires that you have
+saved the postgres database as well as the
 
-### Working with Translations
+### Saving
+The dev.yml docker file includes paths that allow users to save snapshots of
 
-You can log all of the I18n lookups to the Rails logger by setting the I18N_DEBUG environment variable to true. This will add a lot of chatter to the Rails logger (but can be very helpful to zero in on what I18n key you should or could use).
-
-```console
-$ I18N_DEBUG=true bin/rails server
+``` bash
+alias dcpg='dc exec --user postgres db'
+# You can backup the postgres database
+dcpg pg_dump -Fc --file=/Fc/hyku.Fc postgres
+# We can also backup the fcrepo data.
+dc exec fcrepo curl --data '/io/20170602' localhost:8080/fcrepo/rest/fcr:backup
 ```
 
-### On AWS
+### Restoration
 
-AWS CloudFormation templates for the Hyku stack are available in a separate repository:
-
-https://github.com/hybox/aws
-
-### With Docker
-
-We distribute a `docker-compose.yml` configuration for running the Hyku stack and application using docker. Once you have [docker](https://docker.com) installed and running, launch the stack using e.g.:
-
-```bash
-docker-compose up -d
+``` bash
+dcpg pg_restore --dbname=postgres /Fc/hyku.Fc
+dc exec fcrepo curl --data '/io/20170602' localhost:8080/fcrepo/rest/fcr:restore
+dc exec web bundle exec rails runner "ActiveFedora::Base.reindex_everything"
 ```
 
-## Switching accounts
 
-The recommend way to switch your current session from one account to another is by doing:
+### Running as an Apache Service
 
-```ruby
-AccountElevator.switch!('repo.example.com')
-```
+In development mode, we run this application behind an apache service. This is
+to allow for us to; have multiple tests running on the same server, and to
+expose some of the additional components, (eg. the solr service and the fcrepo
+service).
 
-## Development Dependencies
+The apache2.conf file shows the setup we use to go along with the
+development docker file.  Note the care that needs to be taken with proxy
+serving the RIIIF filepaths in this arrangement.
 
-### Postgres
+# More Information
 
-Hydra-in-a-Box supports multitenancy using the `apartment` gem. `apartment` works best with a postgres database.
-
-## Importing
-### from CSV:
-
-```bash
-./bin/import_from_csv localhost spec/fixtures/csv/gse_metadata.csv ../hyku-objects
-```
-
-### from purl:
-
-```bash
-./bin/import_from_purl ../hyku-objects bc390xk2647 bc402fk6835 bc483gc9313
-```
+Please see the [Samvera Labs](https://github.com/samvera-labs/hyku) repository
+for additional information.
