@@ -13,7 +13,7 @@ services:
     ports:
       - "8983:8983"
     volumes:
-      - .:/app
+      - ../..:/app
       - solr:/opt/solr/server/solr/mycores
     entrypoint:
       - docker-entrypoint.sh
@@ -24,13 +24,13 @@ services:
   fcrepo:
     image: botimer/fcrepo:4.5.1
     volumes:
-     - ./fcrepo_io:/io  # Us can use this in development to save and restore fcrepo
+     - ../../fcrepo_io:/io  # Us can use this in development to save and restore fcrepo
      - fcrepo:/opt/data
     ports:
      - "8080:8080"
 
   app:
-    build: .
+    build: ../..
     environment:
       - REDIS_HOST=redis_primary
       - DATABASE_URL=postgresql://postgres@db/postgres
@@ -44,9 +44,8 @@ services:
       - SECRET_KEY_BASE=asdf
 #      - RAILS_CACHE_STORE_URL=memcache
     volumes:
-      - ./examples:/data/examples
-      - .:/data  # You can do this to actively make changes in dev mode
-      - ./gems:/usr/local/bundle/gems  # This makes gems available outsite container
+      - ../../examples:/data/examples
+      - ../..:/data  # You can do this to actively make changes in dev mode
       - uploads:/data/public/uploads
     logging:
       driver: "json-file"
@@ -65,11 +64,12 @@ services:
     ports:
       - "3000:3000"
 
+
   db:
     image: postgres
     volumes:
       - db:/var/lib/postgresql/data
-      - ./Fc:/Fc  # For Backups and restores
+      - ../../Fc:/Fc  # For Backups and restores
     ports:
       - "5432:5432"
 

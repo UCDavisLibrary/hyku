@@ -24,7 +24,7 @@ fits.log
 
 # Development share of gems
 gems/
-
+hyrax/
 
 ## Environment normalization:
 /.bundle
