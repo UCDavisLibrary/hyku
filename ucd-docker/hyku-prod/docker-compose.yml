@@ -11,7 +11,7 @@ services:
   solr:
     image: solr
     ports:
-      - "8983:8983"
+      - "${SOLR_PORT}:8983"
     volumes:
       - ../..:/app
       - solr:/opt/solr/server/solr/mycores
@@ -27,7 +27,7 @@ services:
      - ../../fcrepo_io:/io  # Us can use this in development to save and restore fcrepo
      - fcrepo:/opt/data
     ports:
-     - "8080:8080"
+     - "${FCREPO_PORT}:8080"
 
   app:
     build: ../..
@@ -63,7 +63,7 @@ services:
       - redis_primary
       - memcache
     ports:
-      - "3000:3000"
+      - "${PORT}:3000"
 
 
   db:
@@ -71,16 +71,16 @@ services:
     volumes:
       - db:/var/lib/postgresql/data
       - ../../Fc:/Fc  # For Backups and restores
-    ports:
-      - "5432:5432"
+    expose:
+      - "5432"
 
   redis_primary:
     image: redis:3
     command: redis-server
     volumes:
       - redis:/data
-    ports:
-      - "6379:6379"
+    expose:
+      - "6379"
 
   memcache:
     image: memcached
