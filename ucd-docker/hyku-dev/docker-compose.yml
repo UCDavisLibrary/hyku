@@ -42,6 +42,8 @@ services:
       - RAILS_SERVE_STATIC_FILES=true
       - RAILS_LOG_TO_STDOUT=true
       - SECRET_KEY_BASE=asdf
+      - FITS_HOME=/opt/fits-1.0.5/fits.sh
+      - fits_home=/opt/fits-1.0.5/fits.sh
 #      - RAILS_CACHE_STORE_URL=memcache
     volumes:
       - ../../examples:/data/examples
