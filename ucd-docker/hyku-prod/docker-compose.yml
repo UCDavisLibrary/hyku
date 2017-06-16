@@ -11,7 +11,7 @@ services:
   solr:
     image: solr
     ports:
-      - "8983:8983"
+      - "${SOLR_PORT}:8983"
     volumes:
       - ../..:/app
       - solr:/opt/solr/server/solr/mycores
@@ -27,7 +27,7 @@ services:
      - ../../fcrepo_io:/io  # Us can use this in development to save and restore fcrepo
      - fcrepo:/opt/data
     ports:
-     - "8080:8080"
+     - "${FCREPO_PORT}:8080"
 
   app:
     build: ../..
@@ -42,13 +42,13 @@ services:
       - RAILS_SERVE_STATIC_FILES=true
       - RAILS_LOG_TO_STDOUT=true
       - SECRET_KEY_BASE=asdf
-      - FITS_HOME=/opt/fits-1.1.1
-#      - RAILS_CACHE_STORE_URL=memcache
+      - RAILS_CACHE_STORE_URL=memcache
     volumes:
-      - ../../examples:/data/examples
-      - ../..:/data  # You can do this to actively make changes in dev mode
+      - ../../examples:/app/examples
+      - uploads:/app/public/uploads
+      #- ../../lib:/data/lib  # You can do this to actively make changes in dev
+      # mode, but these files are in the image
       # - ./gems:/usr/local/bundle/gems  # This makes gems available outsite container
-      - uploads:/data/public/uploads
     logging:
       driver: "json-file"
       options:
@@ -64,7 +64,7 @@ services:
       - redis_primary
       - memcache
     ports:
-      - "3000:3000"
+      - "${PORT}:3000"
 
 
   db:

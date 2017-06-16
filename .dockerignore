@@ -1,0 +1,10 @@
+docker-compose.production.yml
+docker-compose.yml
+Dockerfile
+examples
+Fc
+fcrepo_io
+fits.log
+solr
+spec
+ucd-docker

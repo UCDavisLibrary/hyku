@@ -8,9 +8,9 @@ RUN mkdir -p /opt/fits && \
 
 RUN mkdir /data
 WORKDIR /data
-ADD Gemfile /data/Gemfile
-ADD Gemfile.lock /data/Gemfile.lock
+# Make sure to verify your build is small with the .dockerignore file
+#COPY Gemfile Gemfile.lock bin lib config config.ru db LICENSE Rakefile README.md spec vendor ./
+COPY . ./
 RUN bundle install
-ADD . /data
 RUN bundle exec rake assets:precompile
 EXPOSE 3000
