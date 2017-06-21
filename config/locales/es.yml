@@ -25,6 +25,11 @@ es:
       user_search:
         submit: 'Ir'
   hyku:
+    toolbar:
+      profile:
+        edit_registration: 'Cambia la contraseña'
+    account:
+      signup_disabled: 'El registro de la cuenta está deshabilitado'
     admin:
       title: 'Administración'
       flash:
@@ -83,6 +88,13 @@ es:
         last_login: 'Ultimo acceso'
   hyrax:
     admin:
+      appearances:
+        show:
+          hints:
+            banner_image: 'Para utilizar una imagen como fondo de masthead, debe utilizar una imagen (JPG, GIF o PNG) que tenga al menos 120 píxeles de alto y 1200 píxeles de ancho. Para obtener mejores resultados, utilice una imagen de al menos 1800 píxeles de ancho.'
+          tabs:
+            banner_image: 'Imagen de la Bandera'
+            colors: 'Colores'
       sidebar:
         accounts:                     'Cuentas'
         activity_summary:             'Resumen de la actividad'
@@ -95,3 +107,28 @@ es:
         roles_and_permissions:        'Usarios y grupos'
         system_status:                'Estado del sistema'
         technical:                    'Técnico'
+  proprietor:
+    accounts:
+      index:
+        header: 'Cuentas'
+        create_new: 'Crear una nueva cuenta'
+        tenant: 'Inquilino (UUID)'
+        cname: 'CNAME'
+        manage: 'Gestionar'
+        confirm_delete: '¿Está seguro de que desea eliminar este repositorio?'
+      edit:
+        header: 'Editar cuenta'
+        solr_endpoint: 'Solr punto final'
+        fcrepo_endpoint: 'Fedora punto final'
+      show:
+        header: 'Administrar cuenta'
+        edit: 'Editar cuenta'
+        add: 'Añadir'
+        remove: 'Retirar'
+        current_admins:
+          header: 'Administradores de cuentas actuales'
+          email: 'Dirección de correo electrónico'
+          actions: 'Acción'
+          no_admins: 'No existen administradores'
+      new:
+        header: 'Crear un nuevo repositorio'

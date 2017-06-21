@@ -37,6 +37,7 @@ group :development, :test do
   gem 'byebug'
 
   gem 'i18n-debug', require: false
+  gem 'i18n-tasks'
   gem 'rspec'
   gem 'rspec-rails', '>= 3.6.0'
 
@@ -79,6 +80,7 @@ gem 'rsolr', '~> 2.0'
 gem 'devise'
 gem 'devise-guests', '~> 0.3'
 gem 'devise-i18n'
+gem 'devise_invitable', '~> 1.6'
 
 gem 'apartment'
 gem 'config', '~> 1.2', '>= 1.2.1'
@@ -94,11 +96,6 @@ gem 'peek-redis'
 
 gem 'flipflop', '~> 2.3'
 gem 'lograge'
-
-# Pinned up tight until these are resolved:
-# https://github.com/PerfectlyNormal/tinymce-rails-imageupload/issues/86
-# https://github.com/PerfectlyNormal/tinymce-rails-imageupload/issues/87
-gem 'tinymce-rails-imageupload', '4.0.17.beta'
 
 gem 'zk'
 

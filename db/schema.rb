@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170524170114) do
+ActiveRecord::Schema.define(version: 20170605152346) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -558,7 +558,15 @@ ActiveRecord::Schema.define(version: 20170524170114) do
     t.string "arkivo_subscription"
     t.binary "zotero_token"
     t.string "zotero_userid"
+    t.string "invitation_token"
+    t.datetime "invitation_created_at"
+    t.datetime "invitation_sent_at"
+    t.datetime "invitation_accepted_at"
+    t.integer "invitation_limit"
+    t.integer "invited_by_id"
+    t.string "invited_by_type"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
