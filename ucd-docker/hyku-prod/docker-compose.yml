@@ -24,7 +24,7 @@ services:
   fcrepo:
     image: botimer/fcrepo:4.5.1
     volumes:
-     - ../../fcrepo_io:/io  # Us can use this in development to save and restore fcrepo
+     - ./io:/io  # Us can use this in development to save and restore fcrepo
      - fcrepo:/opt/data
     ports:
      - "${FCREPO_PORT}:8080"
@@ -71,7 +71,7 @@ services:
     image: postgres
     volumes:
       - db:/var/lib/postgresql/data
-      - ../../Fc:/Fc  # For Backups and restores
+      - ./io:/io  # For Backups and restores
     expose:
       - "5432"
 
