@@ -19,7 +19,6 @@ the `samvera-labs` setup.
 On the first time instance, you need to migrate the database.
 
 ``` bash
-alias dc='docker-compose --file=dev.yml'
 dc exec web bundle exec rails db:migrate
 ```
 
@@ -41,17 +40,20 @@ The dev.yml docker file includes paths that allow users to save snapshots of
 
 ``` bash
 alias dcpg='dc exec --user postgres db'
+d=`date --iso`
 # You can backup the postgres database
-dcpg pg_dump -Fc --file=/Fc/hyku.Fc postgres
+dcpg pg_dump -Fc --file=/io/hyku-$d.Fc postgres
 # We can also backup the fcrepo data.
-dc exec fcrepo curl --data '/io/20170602' localhost:8080/fcrepo/rest/fcr:backup
+mkdir io/$d; chmod 777 io/$d;
+dc exec fcrepo curl --data "/io/$d" localhost:8080/fcrepo/rest/fcr:backup
 ```
 
 ### Restoration
 
 ``` bash
-dcpg pg_restore --dbname=postgres /Fc/hyku.Fc
-dc exec fcrepo curl --data '/io/20170602' localhost:8080/fcrepo/rest/fcr:restore
+d='2017-07-06'
+dcpg pg_restore --dbname=postgres /io/hyku-$d.Fc
+dc exec fcrepo curl --data "/io/$d" localhost:8080/fcrepo/rest/fcr:restore
 dc exec web bundle exec rails runner "ActiveFedora::Base.reindex_everything"
 ```
 

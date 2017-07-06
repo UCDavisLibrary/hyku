@@ -62,7 +62,7 @@ module Importer
       # rubocop:enable Metrics/MethodLength
 
       def valid_headers
-        GenericWork.attribute_names + %w(id type file) + collection_headers
+        GenericWork.attribute_names + %w(id type file visibility) + collection_headers
       end
 
       def collection_headers
@@ -81,7 +81,7 @@ module Importer
       def extract_field(header, val, processed)
         return unless val
         case header
-        when 'type', 'id'
+        when 'type', 'id', 'visibility'
           # type and id are singular
           processed[header.to_sym] = val
         when /^(created|issued|date_copyrighted|date_valid)_(.*)$/

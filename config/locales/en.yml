@@ -51,6 +51,11 @@ en:
     proprietor:
       accounts:
         nav: 'Accounts'
+    toolbar:
+      profile:
+        edit_registration: 'Change password'
+    account:
+      signup_disabled: 'Account registration is disabled'
     admin:
       title: 'Administration'
       flash:
@@ -109,6 +114,13 @@ en:
         last_login: 'Last access'
   hyrax:
     admin:
+      appearances:
+        show:
+          hints:
+            banner_image: 'To use an image as a masthead background, you should use an image (JPG, GIF or PNG) that is at least 120 pixels tall and 1200 pixels wide. For best results, use an image at least 1800 pixels wide.'
+          tabs:
+            banner_image: 'Banner Image'
+            colors: 'Colors'
       sidebar:
         accounts:                     'Accounts'
         activity_summary:             'Activity summary'
@@ -121,3 +133,28 @@ en:
         roles_and_permissions:        'Users and groups'
         system_status:                'System status'
         technical:                    'Technical'
+  proprietor:
+    accounts:
+      index:
+        header: 'Accounts'
+        create_new: 'Create new account'
+        tenant: 'Tenant (UUID)'
+        cname: 'CNAME'
+        manage: 'Manage'
+        confirm_delete: 'Are you sure you wish to delete this repository?'
+      edit:
+        header: 'Editing Account'
+        solr_endpoint: 'Solr Endpoint'
+        fcrepo_endpoint: 'Fedora Endpoint'
+      show:
+        header: 'Manage Account'
+        edit: 'Edit Account'
+        add: 'Add'
+        remove: 'Remove'
+        current_admins:
+          header: 'Current Account Administrators'
+          email: 'Email address'
+          actions: 'Action'
+          no_admins: 'No administrators exist'
+      new:
+        header: 'Create a new repository'

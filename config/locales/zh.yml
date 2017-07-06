@@ -50,6 +50,11 @@ zh:
     proprietor:
       accounts:
         nav: '帐号'
+    toolbar:
+      profile:
+        edit_registration: '更改密码'
+    account:
+      signup_disabled: '帐户注册被禁用'
     admin:
       title: '行政'
       flash:
@@ -108,6 +113,13 @@ zh:
         last_login: '最后访问'
   hyrax:
     admin:
+      appearances:
+        show:
+          hints:
+            banner_image: '要使用图像作为标头背景，您应该使用至少120像素高和1200像素宽的图像（JPG，GIF或PNG）。 为获得最佳效果，请使用至少1800像素宽的图像。'
+          tabs:
+            banner_image: '横幅图像'
+            colors: '颜色'
       sidebar:
         accounts:                     '帐号'
         activity_summary:             '活动摘要'
@@ -120,3 +132,28 @@ zh:
         roles_and_permissions:        '用户和组'
         system_status:                '系统状态'
         technical:                    '技术'
+  proprietor:
+    accounts:
+      index:
+        header: '帐号'
+        create_new: '建立新帐户'
+        tenant: '承租人 (UUID)'
+        cname: 'CNAME'
+        manage: '管理'
+        confirm_delete: '您确定要删除此存储库吗？'
+      edit:
+        header: '编辑帐号'
+        solr_endpoint: 'Solr 端点'
+        fcrepo_endpoint: 'Fedora 端点'
+      show:
+        header: '管理帐户'
+        edit: '编辑帐号'
+        add: '加'
+        remove: '去掉'
+        current_admins:
+          header: '经常账户管理员'
+          email: '电子邮件地址'
+          actions: '行动'
+          no_admins: '没有管理员存在'
+      new:
+        header: '创建一个新的存储库'
